@@ -129,7 +129,10 @@
 html,
 body {
   max-width: 100vw;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
+  /** // Challenge [Sticky Element] : Options 2: Use direct DOM handling
+  * https://github.com/vercel/next.js/issues/6132#issuecomment-723160807
+  * The property must be removed to enable window.addEventListener("scroll") */
   height: 100vh;
 }
 

@@ -23,7 +23,7 @@ To complete this challenge you have 2 options, **choose the one you are most com
 
 Make the necessary re-adjustment to the HTML/CSS to achieve the goal, you can find the relevant page markup at:
 - `src/components/Sidebar/Sidebar.tsx`: HTML markups, we already added a class `sticky` that you can work on in CSS side
-- `src/components/Sidebar/Sidebar/sidebar.css`: CSS specifications.
+- `src/components/Sidebar/sidebar.css`: CSS specifications.
 
 We recommand you get familiar with the CSS property [`position: sticky`](https://developer.mozilla.org/en-US/docs/Web/CSS/position#sticky)
 

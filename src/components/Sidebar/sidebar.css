@@ -1,2 +1,12 @@
 .sidebar.sticky {
+  position: sticky;
+  top: 121px;
+}
+
+/* Note : This behavior is only valid on desktop */
+@media screen and (max-width: 768px) {
+  .sidebar.sticky {
+    position: initial;
+    top: initial;
+  }
 }
