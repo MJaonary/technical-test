@@ -9,7 +9,7 @@ We have prepared a bunch of coding challenges for you, according to the position
 - [x] Local setup
 - [x] Sticky Element
 - [x] Fetch, Retry, Timeout
-- [ ] Using `stream.PassThrough`
+- [x] Using `stream.PassThrough`
 - [ ] RPC flow with RabbitMQ
 - [ ] Media Previwer
 - [ ] Basics of Redux
