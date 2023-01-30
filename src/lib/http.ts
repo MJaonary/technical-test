@@ -31,5 +31,50 @@ interface FetchOptions extends RequestInit {
 export default async function fetchEnhanced(url: string, o: FetchOptions): Promise<Response> {
   const { retries = 0, timeout = 0, ...options } = o || {};
   console.log('additional options', { retries, timeout });
-  return fetch(url, options);
+
+  let attempts: number = 1;
+  let controller: AbortController | null;
+
+  const fetchWithRetries = async (): Promise<Response> => {
+    console.log(`Number of left retries : ${retries - attempts}`);
+    attempts++;
+
+    try {
+      controller = new AbortController();
+
+      // Timeout flow: when the response is not received within the timeout, the request is aborted.
+      setTimeout(() => {
+        controller?.abort();
+        controller = null;
+      }, timeout);
+
+      const response = await fetch(url, { ...options, signal: controller?.signal });
+
+      if (response.ok) {
+        return response;
+      }
+
+      // When attempts are exhausted, the entire process should result into failure
+      if (attempts > retries) {
+        return response; // by keeping the original error (already a faillure)
+      }
+
+      // When the request fails, the retry flow is executed
+      return fetchWithRetries();
+    } catch (error: any) {
+      // When attempts are exhausted, the entire process should result into failure.
+      if (attempts > retries) {
+        if (error.name === 'AbortError') {
+          return new Response('Request timeout', { status: 408, statusText: 'The user aborted a request' });
+        }
+
+        return new Response('Internal Error', { status: 500, statusText: `Internal Error: ${error}` });
+      }
+
+      // When the request fails, the retry flow is executed
+      return fetchWithRetries();
+    }
+  };
+
+  return fetchWithRetries();
 }

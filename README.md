@@ -8,7 +8,7 @@ We have prepared a bunch of coding challenges for you, according to the position
 
 - [x] Local setup
 - [x] Sticky Element
-- [ ] Fetch, Retry, Timeout
+- [x] Fetch, Retry, Timeout
 - [ ] Using `stream.PassThrough`
 - [ ] RPC flow with RabbitMQ
 - [ ] Media Previwer
