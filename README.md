@@ -18,3 +18,4 @@ We have prepared a bunch of coding challenges for you, according to the position
 - [x] Scroll to top
 - [ ] Connect wallet
 - [ ] Execute smart contract
+- [x] Design CardPreview component
