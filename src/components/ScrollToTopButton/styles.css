@@ -1,2 +1,19 @@
-.right-bottom-btn {
+/* The button should always be at the right bottom of the page */
+.btn-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* At a certain max-width ~1000px the scrollTop button and the
+ * Start a chat overlap. Therefore we have to move one of them. */
+
+/* @media screen and (max-width: 1000px) {
+  .btn-container {
+    justify-content: start;
+  }
+} */
+
+/* Adding smooth transition to the button when it show and hide */
+.btn.right-bottom-btn {
+  transition: opacity 1s;
 }

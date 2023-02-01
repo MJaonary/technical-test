@@ -15,6 +15,6 @@ We have prepared a bunch of coding challenges for you, according to the position
 - [ ] Basics of Redux
 - [ ] Css Media query usage
 - [ ] Switch Theme
-- [ ] Scroll to top
+- [x] Scroll to top
 - [ ] Connect wallet
 - [ ] Execute smart contract
