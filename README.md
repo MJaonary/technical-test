@@ -10,7 +10,7 @@ We have prepared a bunch of coding challenges for you, according to the position
 - [x] Sticky Element
 - [x] Fetch, Retry, Timeout
 - [x] Using `stream.PassThrough`
-- [ ] RPC flow with RabbitMQ
+- [x] RPC flow with RabbitMQ
 - [ ] Media Previwer
 - [x] Basics of Redux
 - [ ] Css Media query usage
