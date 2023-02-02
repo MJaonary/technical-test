@@ -16,6 +16,6 @@ We have prepared a bunch of coding challenges for you, according to the position
 - [ ] Css Media query usage
 - [x] Switch Theme
 - [x] Scroll to top
-- [ ] Connect wallet
+- [x] Connect wallet
 - [ ] Execute smart contract
 - [x] Design CardPreview component

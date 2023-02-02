@@ -1,7 +1,9 @@
 'use client';
 
-import { createContext, useContext, useCallback, useState, PropsWithChildren } from 'react';
-import { useRouter } from 'next/navigation';
+import MetaMaskOnboarding from '@metamask/onboarding';
+
+import { createContext, useContext, useCallback, useState, PropsWithChildren, useRef, useEffect } from 'react';
+// import { useRouter } from 'next/navigation';
 
 export interface WalletContextValue {
   connected: boolean;
@@ -19,10 +21,18 @@ export const WalletContext = createContext<WalletContextValue>({
 });
 
 export const WalletProvider = ({ children }: PropsWithChildren<WalletProviderProps>) => {
-  const router = useRouter();
+  const onboarding = useRef<MetaMaskOnboarding>();
+
+  // const router = useRouter();
   const [state, setState] = useState<Omit<WalletContextValue, 'connect' | 'disconnect'>>({
     connected: false,
   });
+
+  useEffect(() => {
+    if (!onboarding.current) {
+      onboarding.current = new MetaMaskOnboarding();
+    }
+  }, []);
 
   const connect = useCallback(async () => {
     if (state.connected) {
@@ -30,18 +40,26 @@ export const WalletProvider = ({ children }: PropsWithChildren<WalletProviderPro
       return;
     }
 
-    // @todo: implement this flow
-    new Promise<void>((resolve, reject) => {
-      let confirmed = window.confirm('This function is among the challenges. Do you want to take it?');
+    if (MetaMaskOnboarding.isMetaMaskInstalled()) {
+      try {
+        const newAccount = (await window.ethereum?.request({ method: 'eth_requestAccounts' })) as string[];
 
-      if (confirmed) {
-        resolve();
-        router.push('/challenges/08-connect-wallet');
-        // setState({ connected: true, account: 'the wallet address here' });
-      } else {
-        reject(new Error('User rejected the connection'));
+        if (newAccount && newAccount.length > 0) {
+          const [account] = newAccount;
+          setState({ connected: true, account: account });
+          console.log('Connection successfully done... thank you.');
+          console.log('Wallet Address : ' + account);
+        }
+      } catch (error : any) {
+        console.log(`Error : ${error.message}, Code : ${error.code}`);
       }
-    });
+    } else {
+      onboarding.current?.startOnboarding();
+    }
+
+    Promise.resolve();
+    return;
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.connected]);
 
